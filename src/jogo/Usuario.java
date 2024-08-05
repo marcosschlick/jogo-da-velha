@@ -41,7 +41,7 @@ public class Usuario {
 		Connection conexao = Conexao.getConexao();
 		String sql = """
 			    update users
-				set wins = + 1
+				set wins = wins + 1
 				where username = ?""";
 		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setString(1, u.obterNome());
