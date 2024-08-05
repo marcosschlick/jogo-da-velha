@@ -10,7 +10,12 @@ public class Condicoes {
 		linhaVencedora[0].setBackground(Color.green);
 		linhaVencedora[1].setBackground(Color.green);
 		linhaVencedora[2].setBackground(Color.green);
-
+	}
+	
+	public void pintarVelha(Casa[] posicoes) {
+		for (int i = 0; i < 9; i++) {
+			posicoes[i].setBackground(Color.red);
+		}
 	}
 
 	public String obterVencedor() {
@@ -18,6 +23,7 @@ public class Condicoes {
 	}
 
 	public void checar(Casa[] a) {
+		condicao9(a);
 		condicao1(a);
 		condicao2(a);
 		condicao3(a);
@@ -26,7 +32,7 @@ public class Condicoes {
 		condicao6(a);
 		condicao7(a);
 		condicao8(a);
-		condicao9(a);
+
 
 	}
 
@@ -129,6 +135,7 @@ public class Condicoes {
 		if (a[0].estaMarcado() & a[1].estaMarcado() & a[2].estaMarcado() & a[3].estaMarcado() & a[4].estaMarcado()
 				& a[5].estaMarcado() & a[6].estaMarcado() & a[7].estaMarcado() & a[8].estaMarcado()) {
 			this.fim = true;
+			this.vencedor = "";
 		}
 	}
 

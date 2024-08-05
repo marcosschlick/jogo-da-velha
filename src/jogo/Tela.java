@@ -1,4 +1,5 @@
 package jogo;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ public class Tela {
 		tela.setLayout(null);
 		tela.setLocationRelativeTo(null);
 		tela.setDefaultCloseOperation(1);
-		
+
 		JLabel a1 = new JLabel();
 		a1.setHorizontalAlignment(JLabel.CENTER);
 		a1.setText("Player 1 digite seu username:");
@@ -187,7 +188,6 @@ public class Tela {
 				condicao.checar(a);
 
 				if (condicao.fim == true) {
-					condicao.pintarVencedora(condicao.linhaVencedora);
 					for (int i = 0; i < 9; i++) {
 						a[i].setEnabled(false);
 
@@ -195,6 +195,7 @@ public class Tela {
 
 					if (condicao.obterVencedor() == user1.obterSimbolo()) {
 						legenda.setText(user1.obterNome() + " você ganhou");
+						condicao.pintarVencedora(condicao.linhaVencedora);
 						try {
 							user1.adicionarVitoria(user1);
 						} catch (SQLException e1) {
@@ -204,14 +205,18 @@ public class Tela {
 
 					} else if (condicao.obterVencedor() == user2.obterSimbolo()) {
 						legenda.setText(user2.obterNome() + " você ganhou");
+						condicao.pintarVencedora(condicao.linhaVencedora);
 						try {
 							user2.adicionarVitoria(user2);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					}
+					} else if (condicao.obterVencedor() == "") {
+						legenda.setText("DEU VELHAAA!!! (nínguem recebe pontos");
+						condicao.pintarVelha(a);
 
+					} 
 				}
 
 			}
