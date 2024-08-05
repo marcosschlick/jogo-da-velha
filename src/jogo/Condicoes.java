@@ -1,4 +1,5 @@
 package jogo;
+
 import java.awt.Color;
 
 public class Condicoes {
@@ -11,7 +12,7 @@ public class Condicoes {
 		linhaVencedora[1].setBackground(Color.green);
 		linhaVencedora[2].setBackground(Color.green);
 	}
-	
+
 	public void pintarVelha(Casa[] posicoes) {
 		for (int i = 0; i < 9; i++) {
 			posicoes[i].setBackground(Color.red);
@@ -32,7 +33,6 @@ public class Condicoes {
 		condicao6(a);
 		condicao7(a);
 		condicao8(a);
-
 
 	}
 
