@@ -1,4 +1,5 @@
 package jogo;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class Usuario {
 	public void adicionarVitoria(Usuario u) throws SQLException {
 		Connection conexao = Conexao.getConexao();
 		String sql = """
-			    update users
+				   update users
 				set wins = wins + 1
 				where username = ?""";
 		PreparedStatement stmt = conexao.prepareStatement(sql);
