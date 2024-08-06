@@ -10,10 +10,10 @@ import javax.swing.JLabel;
 public class TelaPrincipal {
 	Usuario user1 = new Usuario();
 	Usuario user2 = new Usuario();
-	public static Tempo tempo = new Tempo();
+	public static Timer time = new Timer();
 
 	public void principal(String nome1, String nome2) {
-		Casa[] array = new Casa[9];
+		Grid[] array = new Grid[9];
 
 		user1.definirNome(nome1);
 		user2.definirNome(nome2);
@@ -27,11 +27,11 @@ public class TelaPrincipal {
 		JLabel legenda = new JLabel();
 		legenda.setHorizontalAlignment(JLabel.CENTER);
 
-		if (tempo.obterTempo() == 0) {
+		if (time.getTime() == 0) {
 			legenda.setText(user1.obterNome() + " é sua vez de jogar");
 			user1.definirSimbolo("X");
 			user2.definirSimbolo("O");
-		} else if (tempo.obterTempo() == 1) {
+		} else if (time.getTime() == 1) {
 			legenda.setText(user2.obterNome() + " é sua vez de jogar");
 			user1.definirSimbolo("O");
 			user2.definirSimbolo("X");
@@ -43,68 +43,68 @@ public class TelaPrincipal {
 		legenda.setSize(700, 200);
 		tela.add(legenda);
 
-		Casa c1 = new Casa(35, 240);
+		Grid c1 = new Grid(35, 240);
 		c1.setText("1");
-		adicionarCasa(c1, 1, tela, array, tempo, legenda, user1, user2);
+		addGrid(c1, 1, tela, array, time, legenda, user1, user2);
 
-		Casa c2 = new Casa(240, 240);
+		Grid c2 = new Grid(240, 240);
 		c2.setText("2");
-		adicionarCasa(c2, 2, tela, array, tempo, legenda, user1, user2);
+		addGrid(c2, 2, tela, array, time, legenda, user1, user2);
 
-		Casa c3 = new Casa(445, 240);
+		Grid c3 = new Grid(445, 240);
 		c3.setText("3");
-		adicionarCasa(c3, 3, tela, array, tempo, legenda, user1, user2);
+		addGrid(c3, 3, tela, array, time, legenda, user1, user2);
 
-		Casa c4 = new Casa(35, 445);
+		Grid c4 = new Grid(35, 445);
 		c4.setText("4");
-		adicionarCasa(c4, 4, tela, array, tempo, legenda, user1, user2);
+		addGrid(c4, 4, tela, array, time, legenda, user1, user2);
 
-		Casa c5 = new Casa(240, 445);
+		Grid c5 = new Grid(240, 445);
 		c5.setText("5");
-		adicionarCasa(c5, 5, tela, array, tempo, legenda, user1, user2);
+		addGrid(c5, 5, tela, array, time, legenda, user1, user2);
 
-		Casa c6 = new Casa(445, 445);
+		Grid c6 = new Grid(445, 445);
 		c6.setText("6");
-		adicionarCasa(c6, 6, tela, array, tempo, legenda, user1, user2);
+		addGrid(c6, 6, tela, array, time, legenda, user1, user2);
 
-		Casa c7 = new Casa(35, 650);
+		Grid c7 = new Grid(35, 650);
 		c7.setText("7");
-		adicionarCasa(c7, 7, tela, array, tempo, legenda, user1, user2);
+		addGrid(c7, 7, tela, array, time, legenda, user1, user2);
 
-		Casa c8 = new Casa(240, 650);
+		Grid c8 = new Grid(240, 650);
 		c8.setText("8");
-		adicionarCasa(c8, 8, tela, array, tempo, legenda, user1, user2);
+		addGrid(c8, 8, tela, array, time, legenda, user1, user2);
 
-		Casa c9 = new Casa(445, 650);
+		Grid c9 = new Grid(445, 650);
 		c9.setText("9");
-		adicionarCasa(c9, 9, tela, array, tempo, legenda, user1, user2);
+		addGrid(c9, 9, tela, array, time, legenda, user1, user2);
 
 		tela.setVisible(true);
 
 	}
 
-	public static void adicionarCasa(Casa c, int p, JFrame t, Casa[] a, Tempo tempo, JLabel legenda, Usuario user1,
+	public static void addGrid(Grid c, int p, JFrame t, Grid[] a, Timer time, JLabel legenda, Usuario user1,
 			Usuario user2) {
 		Condicoes condicao = new Condicoes();
 
-		c.posicao = p;
+		c.setPosition(p);
 		t.add(c);
 		c.setVisible(true);
-		a[c.posicao - 1] = c;
+		a[c.getPosition() - 1] = c;
 		c.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				if (condicao.fim != true) {
-					if (tempo.obterTempo() == 0) {
-						c.marcar(user1.obterSimbolo());
+					if (time.getTime() == 0) {
+						c.setGrid(user1.obterSimbolo());
 						legenda.setText(user2.obterNome() + " é sua vez de jogar");
-						tempo.alterar();
+						time.toggle();
 
-					} else if (tempo.obterTempo() == 1) {
-						c.marcar(user2.obterSimbolo());
+					} else if (time.getTime() == 1) {
+						c.setGrid(user2.obterSimbolo());
 						legenda.setText(user1.obterNome() + " é sua vez de jogar");
-						tempo.alterar();
+						time.toggle();
 
 					}
 				}
