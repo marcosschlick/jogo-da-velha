@@ -9,11 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class TelaPrimaria {
-	Usuario user1 = new Usuario();
-	Usuario user2 = new Usuario();
+public class PrimaryScreen {
+	User user1 = new User();
+	User user2 = new User();
 
-	public void primaria() {
+	public void execute() {
 
 		JFrame tela = new JFrame("Jogo da velha");
 		tela.setSize(700, 600);
@@ -59,24 +59,24 @@ public class TelaPrimaria {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				user1.definirNome(b1.getText());
+				user1.setName(b1.getText());
 				try {
-					user1.verificarBanco(user1);
+					user1.checkDatabase();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
-				user2.definirNome(b2.getText());
+				user2.setName(b2.getText());
 				try {
-					user2.verificarBanco(user2);
+					user2.checkDatabase();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
-				TelaPrincipal t = new TelaPrincipal();
-				t.principal(user1.obterNome(), user2.obterNome());
+				MainScreen main = new MainScreen();
+				main.execute(user1.getName(), user2.getName());
 
 				tela.dispose();
 

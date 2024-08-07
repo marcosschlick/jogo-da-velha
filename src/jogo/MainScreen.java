@@ -7,16 +7,16 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class TelaPrincipal {
-	Usuario user1 = new Usuario();
-	Usuario user2 = new Usuario();
+public class MainScreen {
+	User user1 = new User();
+	User user2 = new User();
 	public static Timer time = new Timer();
 
-	public void principal(String nome1, String nome2) {
+	public void execute(String nome1, String nome2) {
 		Grid[] array = new Grid[9];
 
-		user1.definirNome(nome1);
-		user2.definirNome(nome2);
+		user1.setName(nome1);
+		user2.setName(nome2);
 
 		JFrame tela = new JFrame("Jogo da velha");
 		tela.setSize(700, 900);
@@ -28,13 +28,13 @@ public class TelaPrincipal {
 		legenda.setHorizontalAlignment(JLabel.CENTER);
 
 		if (time.getTime() == 0) {
-			legenda.setText(user1.obterNome() + " é sua vez de jogar");
-			user1.definirSimbolo("X");
-			user2.definirSimbolo("O");
+			legenda.setText(user1.getName() + " é sua vez de jogar");
+			user1.setSymbol("X");
+			user2.setSymbol("O");
 		} else if (time.getTime() == 1) {
-			legenda.setText(user2.obterNome() + " é sua vez de jogar");
-			user1.definirSimbolo("O");
-			user2.definirSimbolo("X");
+			legenda.setText(user2.getName() + " é sua vez de jogar");
+			user1.setSymbol("O");
+			user2.setSymbol("X");
 		}
 
 		legenda.setFont(new Font("", Font.BOLD, 30));
@@ -83,8 +83,8 @@ public class TelaPrincipal {
 
 	}
 
-	public static void addGrid(Grid c, int p, JFrame t, Grid[] a, Timer time, JLabel legenda, Usuario user1,
-			Usuario user2) {
+	public static void addGrid(Grid c, int p, JFrame t, Grid[] a, Timer time, JLabel legenda, User user1,
+			User user2) {
 		Condicoes condicao = new Condicoes();
 
 		c.setPosition(p);
@@ -97,13 +97,13 @@ public class TelaPrincipal {
 
 				if (condicao.fim != true) {
 					if (time.getTime() == 0) {
-						c.setGrid(user1.obterSimbolo());
-						legenda.setText(user2.obterNome() + " é sua vez de jogar");
+						c.setGrid(user1.getSymbol());
+						legenda.setText(user2.getName() + " é sua vez de jogar");
 						time.toggle();
 
 					} else if (time.getTime() == 1) {
-						c.setGrid(user2.obterSimbolo());
-						legenda.setText(user1.obterNome() + " é sua vez de jogar");
+						c.setGrid(user2.getSymbol());
+						legenda.setText(user1.getName() + " é sua vez de jogar");
 						time.toggle();
 
 					}
@@ -116,21 +116,21 @@ public class TelaPrincipal {
 
 					}
 
-					if (condicao.obterVencedor() == user1.obterSimbolo()) {
-						legenda.setText(user1.obterNome() + " você ganhou");
+					if (condicao.obterVencedor() == user1.getSymbol()) {
+						legenda.setText(user1.getName() + " você ganhou");
 						condicao.pintarVencedora(condicao.linhaVencedora);
 						try {
-							user1.adicionarVitoria(user1);
+							user1.addWin();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
-					} else if (condicao.obterVencedor() == user2.obterSimbolo()) {
-						legenda.setText(user2.obterNome() + " você ganhou");
+					} else if (condicao.obterVencedor() == user2.getSymbol()) {
+						legenda.setText(user2.getName() + " você ganhou");
 						condicao.pintarVencedora(condicao.linhaVencedora);
 						try {
-							user2.adicionarVitoria(user2);
+							user2.addWin();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

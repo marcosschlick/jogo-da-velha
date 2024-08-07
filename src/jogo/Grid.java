@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
 
-
 @SuppressWarnings("serial")
 public class Grid extends JButton {
 
@@ -29,7 +28,7 @@ public class Grid extends JButton {
 		this.marked = true;
 		setEnabled(false);
 	}
-
+	
 	public void setPosition(int p) {
 		this.position = p;
 	}

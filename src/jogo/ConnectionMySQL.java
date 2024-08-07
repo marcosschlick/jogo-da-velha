@@ -4,16 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexao {
+public class ConnectionMySQL {
 
-	public static Connection getConexao() {
+	public static Connection getConnection() {
 		try {
-
 			final String url = "jdbc:mysql://localhost:3306/jogo_da_velha?verifyServerCertificate=false&useSSL=true";
-			final String usuario = "root";
-			final String senha = "12345678";
+			final String user = "root";
+			final String password = "12345678";
+			return DriverManager.getConnection(url, user, password);
 
-			return DriverManager.getConnection(url, usuario, senha);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
