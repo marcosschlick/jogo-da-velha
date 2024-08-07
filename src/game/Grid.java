@@ -1,7 +1,8 @@
-package jogo;
+package game;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
@@ -15,24 +16,25 @@ public class Grid extends JButton {
 		setText(symbol);
 		setFont(new Font("", Font.BOLD, 80));
 		setOpaque(true);
-		setBackground(Color.GRAY);
+		setBackground(Color.DARK_GRAY);
 		setForeground(Color.WHITE);
 		setSize(200, 200);
 		setEnabled(true);
 		setLocation(x, y);
 	}
 
-	public void setGrid(String s) {
+	public void setGrid(String s, Color color) {
 		setText(s);
 		this.symbol = s;
 		this.marked = true;
 		setEnabled(false);
+		setBackground(color);
 	}
-	
+
 	public void setPosition(int p) {
 		this.position = p;
 	}
-	
+
 	public int getPosition() {
 		return this.position;
 	}
@@ -44,6 +46,5 @@ public class Grid extends JButton {
 	public boolean isMarked() {
 		return this.marked;
 	}
-
 
 }

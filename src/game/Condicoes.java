@@ -1,4 +1,4 @@
-package jogo;
+package game;
 
 import java.awt.Color;
 
@@ -7,10 +7,10 @@ public class Condicoes {
 	String vencedor = "";
 	Grid[] linhaVencedora = new Grid[3];
 
-	public void pintarVencedora(Grid[] linhaVencedora) {
-		linhaVencedora[0].setBackground(Color.green);
-		linhaVencedora[1].setBackground(Color.green);
-		linhaVencedora[2].setBackground(Color.green);
+	public void paintWin(Grid[] linhaVencedora, Color color) {
+		linhaVencedora[0].setBackground(color);
+		linhaVencedora[1].setBackground(color);
+		linhaVencedora[2].setBackground(color);
 	}
 
 	public void pintarVelha(Grid[] posicoes) {
@@ -37,8 +37,7 @@ public class Condicoes {
 	}
 
 	public void condicao1(Grid[] a) {
-		if (a[0].isMarked() & a[0].getSymbol() == a[1].getSymbol()
-				& a[0].getSymbol() == a[2].getSymbol()) {
+		if (a[0].isMarked() & a[0].getSymbol() == a[1].getSymbol() & a[0].getSymbol() == a[2].getSymbol()) {
 			this.fim = true;
 			this.vencedor = a[0].getSymbol();
 			this.linhaVencedora[0] = a[0];
@@ -49,8 +48,7 @@ public class Condicoes {
 	}
 
 	public void condicao2(Grid[] a) {
-		if (a[3].isMarked() & a[3].getSymbol() == a[4].getSymbol()
-				& a[3].getSymbol() == a[5].getSymbol()) {
+		if (a[3].isMarked() & a[3].getSymbol() == a[4].getSymbol() & a[3].getSymbol() == a[5].getSymbol()) {
 			this.fim = true;
 			this.vencedor = a[3].getSymbol();
 			this.linhaVencedora[0] = a[3];
@@ -61,8 +59,7 @@ public class Condicoes {
 	}
 
 	public void condicao3(Grid[] a) {
-		if (a[6].isMarked() & a[6].getSymbol() == a[7].getSymbol()
-				& a[6].getSymbol() == a[8].getSymbol()) {
+		if (a[6].isMarked() & a[6].getSymbol() == a[7].getSymbol() & a[6].getSymbol() == a[8].getSymbol()) {
 			this.fim = true;
 			this.vencedor = a[6].getSymbol();
 			this.linhaVencedora[0] = a[6];
@@ -73,8 +70,7 @@ public class Condicoes {
 	}
 
 	public void condicao4(Grid[] a) {
-		if (a[0].isMarked() & a[0].getSymbol() == a[3].getSymbol()
-				& a[0].getSymbol() == a[6].getSymbol()) {
+		if (a[0].isMarked() & a[0].getSymbol() == a[3].getSymbol() & a[0].getSymbol() == a[6].getSymbol()) {
 			this.fim = true;
 			this.vencedor = a[0].getSymbol();
 			this.linhaVencedora[0] = a[0];
@@ -85,8 +81,7 @@ public class Condicoes {
 	}
 
 	public void condicao5(Grid[] a) {
-		if (a[1].isMarked() & a[1].getSymbol() == a[4].getSymbol()
-				& a[1].getSymbol() == a[7].getSymbol()) {
+		if (a[1].isMarked() & a[1].getSymbol() == a[4].getSymbol() & a[1].getSymbol() == a[7].getSymbol()) {
 			this.fim = true;
 			this.vencedor = a[1].getSymbol();
 			this.linhaVencedora[0] = a[1];
@@ -97,8 +92,7 @@ public class Condicoes {
 	}
 
 	public void condicao6(Grid[] a) {
-		if (a[2].isMarked() & a[2].getSymbol() == a[5].getSymbol()
-				& a[2].getSymbol() == a[8].getSymbol()) {
+		if (a[2].isMarked() & a[2].getSymbol() == a[5].getSymbol() & a[2].getSymbol() == a[8].getSymbol()) {
 			this.fim = true;
 			this.vencedor = a[2].getSymbol();
 			this.linhaVencedora[0] = a[2];
@@ -109,8 +103,7 @@ public class Condicoes {
 	}
 
 	public void condicao7(Grid[] a) {
-		if (a[0].isMarked() & a[0].getSymbol() == a[4].getSymbol()
-				& a[0].getSymbol() == a[8].getSymbol()) {
+		if (a[0].isMarked() & a[0].getSymbol() == a[4].getSymbol() & a[0].getSymbol() == a[8].getSymbol()) {
 			this.fim = true;
 			this.vencedor = a[0].getSymbol();
 			this.linhaVencedora[0] = a[0];
@@ -132,8 +125,8 @@ public class Condicoes {
 	}
 
 	public void condicao9(Grid[] a) {
-		if (a[0].isMarked() & a[1].isMarked() & a[2].isMarked() & a[3].isMarked() & a[4].isMarked()
-				& a[5].isMarked() & a[6].isMarked() & a[7].isMarked() & a[8].isMarked()) {
+		if (a[0].isMarked() & a[1].isMarked() & a[2].isMarked() & a[3].isMarked() & a[4].isMarked() & a[5].isMarked()
+				& a[6].isMarked() & a[7].isMarked() & a[8].isMarked()) {
 			this.fim = true;
 			this.vencedor = "";
 		}

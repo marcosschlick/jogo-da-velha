@@ -1,8 +1,9 @@
-package jogo;
+package game;
 
 import java.util.Random;
+import java.util.Timer;
 
-public class Timer {
+public class Times extends Timer {
 
 	private Random ramdom = new Random();
 	private int time = ramdom.nextInt(2);
