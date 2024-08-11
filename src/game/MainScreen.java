@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.TimerTask;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -87,7 +86,7 @@ public class MainScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (condicao.fim != true) {
+				if (condicao.isOver() != true) {
 					if (time.getTime() == 0) {
 						c.setGrid(user1.getSymbol(), new Color(20, 100, 255));
 						legenda.setText(user2.getName() + " é sua vez de jogar");
@@ -100,31 +99,28 @@ public class MainScreen {
 
 					}
 				}
-				condicao.checar(a);
+				condicao.check(a);
 
-				if (condicao.fim == true) {
+				if (condicao.isOver() == true) {
 					for (int i = 0; i < 9; i++) {
 						a[i].setEnabled(false);
 					}
 
-					TimerTask task = new TimerTask() {
+					if (condicao.getVencedor() == user1.getSymbol()) {
+						TimerTask task = new TimerTask() {
+							@Override
+							public void run() {
+								if (time.getTime() == 0) {
+									condicao.paintWin(condicao.getLinhaVencedora(), new Color(0, 255, 25));
+									time.toggle();
 
-						@Override
-						public void run() {
-							if (time.getTime() == 0) {
-								condicao.paintWin(condicao.linhaVencedora, new Color(0, 255, 25));
-								time.toggle();
-
-							} else if (time.getTime() == 1) {
-								condicao.paintWin(condicao.linhaVencedora, new Color(100, 255, 100));
-								time.toggle();
+								} else if (time.getTime() == 1) {
+									condicao.paintWin(condicao.getLinhaVencedora(), new Color(100, 255, 100));
+									time.toggle();
+								}
 							}
-						}
-					};
-
-					time.scheduleAtFixedRate(task, 0, 100);
-
-					if (condicao.obterVencedor() == user1.getSymbol()) {
+						};
+						time.scheduleAtFixedRate(task, 0, 100);
 						legenda.setText(user1.getName() + " você ganhou");
 
 						try {
@@ -134,7 +130,21 @@ public class MainScreen {
 							e1.printStackTrace();
 						}
 
-					} else if (condicao.obterVencedor() == user2.getSymbol()) {
+					} else if (condicao.getVencedor() == user2.getSymbol()) {
+						TimerTask task = new TimerTask() {
+							@Override
+							public void run() {
+								if (time.getTime() == 0) {
+									condicao.paintWin(condicao.getLinhaVencedora(), new Color(0, 255, 25));
+									time.toggle();
+
+								} else if (time.getTime() == 1) {
+									condicao.paintWin(condicao.getLinhaVencedora(), new Color(100, 255, 100));
+									time.toggle();
+								}
+							}
+						};
+						time.scheduleAtFixedRate(task, 0, 100);
 						legenda.setText(user2.getName() + " você ganhou");
 
 						try {
@@ -143,8 +153,8 @@ public class MainScreen {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					} else if (condicao.obterVencedor() == "") {
-						legenda.setText("DEU VELHAAA!!! (nínguem recebe pontos");
+					} else if (condicao.getVencedor() == "") {
+						legenda.setText("DEU VELHAAA!!! (nínguem recebe pontos)");
 						condicao.pintarVelha(a);
 
 					}

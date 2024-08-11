@@ -29,7 +29,8 @@ public class User {
 		String sql = """
 				insert into users (username)
 				select ?
-				where not exists (select 1 from users where username = ?)""";
+				where not exists (select 1 from users where username = ?);
+				""";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, this.getName());
 		stmt.setString(2, this.getName());
@@ -41,9 +42,10 @@ public class User {
 	public void addWin() throws SQLException {
 		Connection connection = ConnectionMySQL.getConnection();
 		String sql = """
-				   update users
-				set wins = wins + 1
-				where username = ?""";
+				update users
+				   set wins = wins + 1
+				where username = ?;
+				""";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, this.getName());
 		stmt.execute();
