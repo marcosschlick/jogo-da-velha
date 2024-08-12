@@ -2,32 +2,32 @@ package game;
 
 import java.awt.Color;
 
-public class Condicoes {
+public class Rules {
 	private boolean over = false;
-	private String vencedor = "";
-	private Grid[] linhaVencedora = new Grid[3];
+	private String winner = "";
+	private Grid[] winningLine = new Grid[3];
 
 	public boolean isOver() {
 		return this.over;
 	}
 
-	public String getVencedor() {
-		return this.vencedor;
+	public String getWinner() {
+		return this.winner;
 	}
 
-	public Grid[] getLinhaVencedora() {
-		return this.linhaVencedora;
+	public Grid[] getWinningLine() {
+		return this.winningLine;
 	}
 
-	public void paintWin(Grid[] linhaVencedora, Color color) {
-		linhaVencedora[0].setBackground(color);
-		linhaVencedora[1].setBackground(color);
-		linhaVencedora[2].setBackground(color);
+	public void paintWin(Grid[] winningLine, Color color) {
+		winningLine[0].setBackground(color);
+		winningLine[1].setBackground(color);
+		winningLine[2].setBackground(color);
 	}
 
-	public void pintarVelha(Grid[] posicoes) {
+	public void paintDraw(Grid[] array) {
 		for (int i = 0; i < 9; i++) {
-			posicoes[i].setBackground(Color.red);
+			array[i].setBackground(Color.red);
 		}
 	}
 
@@ -48,10 +48,10 @@ public class Condicoes {
 		if (array[a].isMarked() & array[a].getSymbol() == array[b].getSymbol()
 				& array[b].getSymbol() == array[c].getSymbol()) {
 			this.over = true;
-			this.vencedor = array[a].getSymbol();
-			this.linhaVencedora[0] = array[a];
-			this.linhaVencedora[1] = array[b];
-			this.linhaVencedora[2] = array[c];
+			this.winner = array[a].getSymbol();
+			this.winningLine[0] = array[a];
+			this.winningLine[1] = array[b];
+			this.winningLine[2] = array[c];
 		}
 
 	}
@@ -60,7 +60,7 @@ public class Condicoes {
 		if (a[0].isMarked() & a[1].isMarked() & a[2].isMarked() & a[3].isMarked() & a[4].isMarked() & a[5].isMarked()
 				& a[6].isMarked() & a[7].isMarked() & a[8].isMarked()) {
 			this.over = true;
-			this.vencedor = "";
+			this.winner = "";
 		}
 	}
 

@@ -74,54 +74,53 @@ public class MainScreen {
 
 	}
 
-	public static void addGrid(Grid c, int p, JFrame t, Grid[] a, Times time, JLabel legenda, User user1, User user2) {
-		Condicoes condicao = new Condicoes();
+	public static void addGrid(Grid grid, int pos, JFrame screen, Grid[] array, Times time, JLabel label, User user1, User user2) {
+		Rules rules = new Rules();
+		grid.setPosition(pos);
+		screen.add(grid);
+		grid.setVisible(true);
+		array[grid.getPosition() - 1] = grid;
 
-		c.setPosition(p);
-		t.add(c);
-		c.setVisible(true);
-		a[c.getPosition() - 1] = c;
-
-		c.addActionListener(new ActionListener() {
+		grid.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (condicao.isOver() != true) {
+				if (rules.isOver() != true) {
 					if (time.getTime() == 0) {
-						c.setGrid(user1.getSymbol(), new Color(20, 100, 255));
-						legenda.setText(user2.getName() + " é sua vez de jogar");
+						grid.setGrid(user1.getSymbol(), new Color(20, 100, 255));
+						label.setText(user2.getName() + " é sua vez de jogar");
 						time.toggle();
 
 					} else if (time.getTime() == 1) {
-						c.setGrid(user2.getSymbol(), new Color(255, 10, 10));
-						legenda.setText(user1.getName() + " é sua vez de jogar");
+						grid.setGrid(user2.getSymbol(), new Color(255, 10, 10));
+						label.setText(user1.getName() + " é sua vez de jogar");
 						time.toggle();
 
 					}
 				}
-				condicao.check(a);
+				rules.check(array);
 
-				if (condicao.isOver() == true) {
+				if (rules.isOver() == true) {
 					for (int i = 0; i < 9; i++) {
-						a[i].setEnabled(false);
+						array[i].setEnabled(false);
 					}
 
-					if (condicao.getVencedor() == user1.getSymbol()) {
+					if (rules.getWinner() == user1.getSymbol()) {
 						TimerTask task = new TimerTask() {
 							@Override
 							public void run() {
 								if (time.getTime() == 0) {
-									condicao.paintWin(condicao.getLinhaVencedora(), new Color(0, 255, 25));
+									rules.paintWin(rules.getWinningLine(), new Color(0, 255, 25));
 									time.toggle();
 
 								} else if (time.getTime() == 1) {
-									condicao.paintWin(condicao.getLinhaVencedora(), new Color(100, 255, 100));
+									rules.paintWin(rules.getWinningLine(), new Color(100, 255, 100));
 									time.toggle();
 								}
 							}
 						};
 						time.scheduleAtFixedRate(task, 0, 100);
-						legenda.setText(user1.getName() + " você ganhou");
+						label.setText(user1.getName() + " você ganhou");
 
 						try {
 							user1.addWin();
@@ -130,22 +129,22 @@ public class MainScreen {
 							e1.printStackTrace();
 						}
 
-					} else if (condicao.getVencedor() == user2.getSymbol()) {
+					} else if (rules.getWinner() == user2.getSymbol()) {
 						TimerTask task = new TimerTask() {
 							@Override
 							public void run() {
 								if (time.getTime() == 0) {
-									condicao.paintWin(condicao.getLinhaVencedora(), new Color(0, 255, 25));
+									rules.paintWin(rules.getWinningLine(), new Color(0, 255, 25));
 									time.toggle();
 
 								} else if (time.getTime() == 1) {
-									condicao.paintWin(condicao.getLinhaVencedora(), new Color(100, 255, 100));
+									rules.paintWin(rules.getWinningLine(), new Color(100, 255, 100));
 									time.toggle();
 								}
 							}
 						};
 						time.scheduleAtFixedRate(task, 0, 100);
-						legenda.setText(user2.getName() + " você ganhou");
+						label.setText(user2.getName() + " você ganhou");
 
 						try {
 							user2.addWin();
@@ -153,9 +152,9 @@ public class MainScreen {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					} else if (condicao.getVencedor() == "") {
-						legenda.setText("DEU VELHAAA!!! (nínguem recebe pontos)");
-						condicao.pintarVelha(a);
+					} else if (rules.getWinner() == "") {
+						label.setText("DEU VELHAAA!!! (nínguem recebe pontos)");
+						rules.paintDraw(array);
 
 					}
 				}
