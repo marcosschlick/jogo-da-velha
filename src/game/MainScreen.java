@@ -14,11 +14,11 @@ public class MainScreen {
 	User user2 = new User();
 	public static Times time = new Times();
 
-	public void execute(String nome1, String nome2) {
+	public void execute(String name1, String name2) {
 		Grid[] array = new Grid[9];
 
-		user1.setName(nome1);
-		user2.setName(nome2);
+		user1.setName(name1);
+		user2.setName(name2);
 
 		JFrame screen = new JFrame("Jogo da velha");
 		screen.setSize(700, 900);
@@ -32,15 +32,17 @@ public class MainScreen {
 		label.setLocation(0, 0);
 		label.setVisible(true);
 		label.setSize(700, 200);
+
 		if (time.getTime() == 0) {
 			label.setText(user1.getName() + " é sua vez de jogar");
 			user1.setSymbol("X");
 			user2.setSymbol("O");
 		} else if (time.getTime() == 1) {
 			label.setText(user2.getName() + " é sua vez de jogar");
-			user1.setSymbol("O");
-			user2.setSymbol("X");
+			user1.setSymbol("X");
+			user2.setSymbol("O");
 		}
+
 		screen.add(label);
 
 		Grid c1 = new Grid(35, 240);
@@ -74,7 +76,8 @@ public class MainScreen {
 
 	}
 
-	public static void addGrid(Grid grid, int pos, JFrame screen, Grid[] array, Times time, JLabel label, User user1, User user2) {
+	public static void addGrid(Grid grid, int pos, JFrame screen, Grid[] array, Times time, JLabel label, User user1,
+			User user2) {
 		Rules rules = new Rules();
 		grid.setPosition(pos);
 		screen.add(grid);

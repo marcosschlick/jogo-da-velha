@@ -20,14 +20,15 @@ public class Rules {
 	}
 
 	public void paintWin(Grid[] winningLine, Color color) {
-		winningLine[0].setBackground(color);
-		winningLine[1].setBackground(color);
-		winningLine[2].setBackground(color);
+		for (Grid grids : winningLine) {
+			grids.setBackground(color);
+		}
 	}
 
 	public void paintDraw(Grid[] array) {
-		for (int i = 0; i < 9; i++) {
-			array[i].setBackground(Color.red);
+
+		for (Grid grids : array) {
+			grids.setBackground(Color.red);
 		}
 	}
 
