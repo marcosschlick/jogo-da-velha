@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 public class PrimaryScreen {
 	User user1 = new User();
 	User user2 = new User();
+	Times timer = new Times();
 
 	public void execute() {
 
@@ -61,19 +62,36 @@ public class PrimaryScreen {
 		buttonPlay.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (timer.getTime() == 0) {
+					user2.setName(enter2.getText());
+					try {
+						user2.checkDatabase();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 
-				user1.setName(enter1.getText());
-				try {
-					user1.checkDatabase();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+					user1.setName(enter1.getText());
+					try {
+						user1.checkDatabase();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
 
-				user2.setName(enter2.getText());
-				try {
-					user2.checkDatabase();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				if (timer.getTime() == 1) {
+					user1.setName(enter1.getText());
+					try {
+						user1.checkDatabase();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+
+					user2.setName(enter2.getText());
+					try {
+						user2.checkDatabase();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
 
 				MainScreen main = new MainScreen();
