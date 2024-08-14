@@ -45,32 +45,32 @@ public class MainScreen {
 
 		screen.add(label);
 
-		Grid c1 = new Grid(35, 240);
-		addGrid(c1, 1, screen, array, time, label, user1, user2);
+		Grid g1 = new Grid(35, 240);
+		addGrid(g1, 1, screen, array, time, label, user1, user2);
 
-		Grid c2 = new Grid(240, 240);
-		addGrid(c2, 2, screen, array, time, label, user1, user2);
+		Grid g2 = new Grid(240, 240);
+		addGrid(g2, 2, screen, array, time, label, user1, user2);
 
-		Grid c3 = new Grid(445, 240);
-		addGrid(c3, 3, screen, array, time, label, user1, user2);
+		Grid g3 = new Grid(445, 240);
+		addGrid(g3, 3, screen, array, time, label, user1, user2);
 
-		Grid c4 = new Grid(35, 445);
-		addGrid(c4, 4, screen, array, time, label, user1, user2);
+		Grid g4 = new Grid(35, 445);
+		addGrid(g4, 4, screen, array, time, label, user1, user2);
 
-		Grid c5 = new Grid(240, 445);
-		addGrid(c5, 5, screen, array, time, label, user1, user2);
+		Grid g5 = new Grid(240, 445);
+		addGrid(g5, 5, screen, array, time, label, user1, user2);
 
-		Grid c6 = new Grid(445, 445);
-		addGrid(c6, 6, screen, array, time, label, user1, user2);
+		Grid g6 = new Grid(445, 445);
+		addGrid(g6, 6, screen, array, time, label, user1, user2);
 
-		Grid c7 = new Grid(35, 650);
-		addGrid(c7, 7, screen, array, time, label, user1, user2);
+		Grid g7 = new Grid(35, 650);
+		addGrid(g7, 7, screen, array, time, label, user1, user2);
 
-		Grid c8 = new Grid(240, 650);
-		addGrid(c8, 8, screen, array, time, label, user1, user2);
+		Grid g8 = new Grid(240, 650);
+		addGrid(g8, 8, screen, array, time, label, user1, user2);
 
-		Grid c9 = new Grid(445, 650);
-		addGrid(c9, 9, screen, array, time, label, user1, user2);
+		Grid g9 = new Grid(445, 650);
+		addGrid(g9, 9, screen, array, time, label, user1, user2);
 
 		screen.setVisible(true);
 
@@ -88,7 +88,7 @@ public class MainScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (rules.isOver() != true) {
+				if (rules.isOver() == false) {
 					if (time.getTime() == 0) {
 						grid.setGrid(user1.getSymbol(), new Color(20, 100, 255));
 						label.setText(user2.getName() + " é sua vez de jogar");
@@ -101,14 +101,17 @@ public class MainScreen {
 
 					}
 				}
+
 				rules.check(array);
 
 				if (rules.isOver() == true) {
-					for (int i = 0; i < 9; i++) {
-						array[i].setEnabled(false);
+
+					for (Grid grids : array) {
+						grids.setEnabled(false);
 					}
 
-					if (rules.getWinner() == user1.getSymbol()) {
+					if (rules.getWinnerSymbol() != "") {
+
 						TimerTask task = new TimerTask() {
 							@Override
 							public void run() {
@@ -123,39 +126,18 @@ public class MainScreen {
 							}
 						};
 						time.scheduleAtFixedRate(task, 0, 100);
-						label.setText(user1.getName() + " você ganhou");
+						label.setText(User.getWinner(user1, user2, rules.getWinnerSymbol()).getName() + " você ganhou");
 
 						try {
-							user1.addWin();
+							User.getWinner(user1, user2, rules.getWinnerSymbol()).addWin();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 
-					} else if (rules.getWinner() == user2.getSymbol()) {
-						TimerTask task = new TimerTask() {
-							@Override
-							public void run() {
-								if (time.getTime() == 0) {
-									rules.paintWin(rules.getWinningLine(), new Color(0, 255, 25));
-									time.toggle();
+					}
 
-								} else if (time.getTime() == 1) {
-									rules.paintWin(rules.getWinningLine(), new Color(100, 255, 100));
-									time.toggle();
-								}
-							}
-						};
-						time.scheduleAtFixedRate(task, 0, 100);
-						label.setText(user2.getName() + " você ganhou");
-
-						try {
-							user2.addWin();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					} else if (rules.getWinner() == "") {
+					else if (rules.getWinnerSymbol() == "") {
 						label.setText("DEU VELHAAA!!! (nínguem recebe pontos)");
 						rules.paintDraw(array);
 

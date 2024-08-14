@@ -11,7 +11,7 @@ public class Rules {
 		return this.over;
 	}
 
-	public String getWinner() {
+	public String getWinnerSymbol() {
 		return this.winner;
 	}
 
@@ -26,7 +26,6 @@ public class Rules {
 	}
 
 	public void paintDraw(Grid[] array) {
-
 		for (Grid grids : array) {
 			grids.setBackground(Color.red);
 		}

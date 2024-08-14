@@ -8,6 +8,14 @@ public class User {
 	private String name;
 	private String symbol = " ";
 
+	public static User getWinner(User user1, User user2, String symbol) {
+		if (user1.getSymbol() == symbol) {
+			return user1;
+		} else {
+			return user2;
+		}
+	}
+
 	public void setName(String n) {
 		this.name = n;
 	}
