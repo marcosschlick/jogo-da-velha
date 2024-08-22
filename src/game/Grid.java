@@ -22,16 +22,16 @@ public class Grid extends JButton {
 		setLocation(x, y);
 	}
 
-	public void setGrid(String s, Color color) {
-		setText(s);
-		this.symbol = s;
+	public void setGrid(String symbol, Color color) {
+		setText(symbol);
+		this.symbol = symbol;
 		this.marked = true;
 		setEnabled(false);
 		setBackground(color);
 	}
 
-	public void setPosition(int p) {
-		this.position = p;
+	public void setPosition(int pos) {
+		this.position = pos;
 	}
 
 	public int getPosition() {
