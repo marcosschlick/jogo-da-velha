@@ -2,11 +2,13 @@ package game;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
 	private String name;
 	private String symbol = " ";
+	private int wins = 0;
 
 	public static User getWinner(User user1, User user2, String symbol) {
 		if (user1.getSymbol() == symbol) {
@@ -32,6 +34,10 @@ public class User {
 		return this.symbol;
 	}
 
+	public int getWins() {
+		return this.wins;
+	}
+
 	public void checkDatabase() throws SQLException {
 		Connection connection = ConnectionMySQL.getConnection();
 		String sql = """
@@ -51,7 +57,7 @@ public class User {
 		Connection connection = ConnectionMySQL.getConnection();
 		String sql = """
 				update users
-				   set wins = wins + 1
+				set wins = wins + 1
 				where username = ?;
 				""";
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -59,5 +65,24 @@ public class User {
 		stmt.execute();
 		stmt.close();
 		connection.close();
+	}
+
+	public void getWin() throws SQLException {
+		Connection connection = ConnectionMySQL.getConnection();
+		String sql = """
+				select wins
+				from users
+				where username = ?;
+				""";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, this.getName());
+		ResultSet result = stmt.executeQuery();
+		if (result.next()) {
+			this.wins = result.getInt("wins");
+		}
+		result.close();
+		stmt.close();
+		connection.close();
+
 	}
 }

@@ -126,7 +126,17 @@ public class MainScreen {
 							}
 						};
 						time.scheduleAtFixedRate(task, 0, 100);
-						label.setText(User.getWinner(user1, user2, rules.getWinnerSymbol()).getName() + " você ganhou");
+
+						try {
+							User.getWinner(user1, user2, rules.getWinnerSymbol()).getWin();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+						label.setText("Parabéns " + User.getWinner(user1, user2, rules.getWinnerSymbol()).getName()
+								+ " pela " + User.getWinner(user1, user2, rules.getWinnerSymbol()).getWins()
+								+ "° vitóia!");
 
 						try {
 							User.getWinner(user1, user2, rules.getWinnerSymbol()).addWin();
